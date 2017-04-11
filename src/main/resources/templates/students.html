@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>List Of All Students</title>
+<link rel="stylesheet"
+	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css}" />
+	
+	<link rel="stylesheet" type="text/css"  
+	
+	th:href="@{/css/myStyle.css}"/>
+	
+	
+</head>
+
+<body>
+
+<div class="container spacer">
+<a th:href="@{form}">Student Registration Form</a>
+
+
+</div>
+<div class="container spacer">
+
+<form th:action="@{Index}" method="get">
+
+<div class="form-group">
+<label> keyword:</label>
+<input type="text" name="keyWord" th:value="${keyWord}"/>
+<button type="submit">Load Students</button>
+
+
+</div>
+
+
+</form>
+
+</div>
+	<div class="container spacer">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Date</th>
+					<th>Email</th>
+					<th>Photo</th>
+
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr th:each="e:${students.content}">
+					<td th:text="${e.id}"></td>
+					<td th:text="${e.name}"></td>
+					<td th:text="${e.dateOfBirth}"></td>
+					<td th:text="${e.email}"></td>
+					<td th:text="${e.photo}"></td>
+					
+					<td><a onclick=" return confirm('Are you sure?')" th:href="@{remove(id=${e.id})}">Remove</a></td>
+					<td><a  th:href="@{edit(id=${e.id})}">Edit</a></td>
+
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<div class="container">
+	<ul class="nav nav-pills">
+	<li th:each="p:${pages}" th:class="${p==pageCurrent}?active:''">
+	<a th:text="${p}" th:href="@{Index(page=${p},keyWord=${keyWord})}"></a>
+	
+	</li>
+	
+	</ul>
+	
+	</div>
+</body>
+</html>
